@@ -1,17 +1,6 @@
 <?php
 declare(strict_types=1);
 
-/**
- * College Grade Calculator
- * Accepts a student's name and grades for three courses, validates them,
- * then computes the average, a letter grade, a 4.0-scale GPA, and
- * academic standing.
- *
- * Passing mark is 60% (a D, the lowest passing letter grade on the
- * scale below). Some colleges require a C or better in major courses —
- * adjust PASSING_MARK and letter_grade_for() if yours does.
- */
-
 const PASSING_MARK = 60.0;
 const COURSE_KEYS = ['course1', 'course2', 'course3'];
 const DEFAULT_COURSE_NAMES = ['Course 1', 'Course 2', 'Course 3'];
@@ -32,10 +21,6 @@ function e(string $value): string
     return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
 }
 
-/**
- * Maps a percentage grade to a letter grade and its 4.0-scale grade points.
- * @return array{0: string, 1: float} [letter, gradePoints]
- */
 function letter_grade_for(float $pct): array
 {
     if ($pct >= 97) return ['A+', 4.0];
