@@ -1,10 +1,5 @@
-// ============================================================
-// Student Grade Calculator — stylesheet
-// Theme: a report card resting on a chalkboard desk.
-// ============================================================
 @use "sass:color";
 
-// ---- Tokens -------------------------------------------------
 $bg-desk:      #21302A;   // chalkboard/desk green-black
 $paper:        #EFE3C3;   // manila report-card paper
 $paper-edge:   #E3D3A9;   // slightly deeper paper tone for shading
@@ -83,7 +78,6 @@ body {
   padding: $space-4 $space-4 $space-3;
   position: relative;
 
-  // spiral-bound top edge
   &::before {
     content: "";
     position: absolute;
