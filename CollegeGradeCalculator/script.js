@@ -1,7 +1,3 @@
-// College Grade Calculator — front-end interactivity.
-// All of this is a convenience layer: PHP still validates and
-// calculates authoritatively on the server when the form is submitted.
-
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.querySelector('#grade-form');
   const gradeInputs = Array.from(document.querySelectorAll('.grade-input'));
