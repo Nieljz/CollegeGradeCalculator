@@ -1,0 +1,288 @@
+* {
+  box-sizing: border-box;
+}
+
+:focus-visible {
+  outline: 3px solid #2F6B4F;
+  outline-offset: 2px;
+}
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background: #21302A;
+  background-image: radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.035), transparent 40%), radial-gradient(circle at 88% 82%, rgba(255, 255, 255, 0.03), transparent 45%);
+  color: #262220;
+  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+  line-height: 1.5;
+  padding: 2.5rem 0.875rem 2.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.sheet {
+  width: 100%;
+  max-width: 40rem;
+}
+
+.card {
+  background: #EFE3C3;
+  background-image: linear-gradient(180deg, #EFE3C3 0%, #E3D3A9 100%);
+  border-radius: 3px;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4) inset, 0 18px 40px rgba(0, 0, 0, 0.35);
+  transform: rotate(-0.35deg);
+  padding: 2.5rem 2.5rem 1.5rem;
+  position: relative;
+}
+.card::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 2.5rem;
+  right: 2.5rem;
+  height: 20px;
+  background-image: radial-gradient(#21302A 45%, transparent 46%);
+  background-size: 22px 22px;
+  background-repeat: repeat-x;
+  background-position: center;
+  opacity: 0.9;
+}
+@media (max-width: 30rem) {
+  .card {
+    padding: 1.5rem 0.875rem 0.875rem;
+    transform: none;
+  }
+}
+
+.masthead {
+  border-bottom: 2px solid #262220;
+  padding-bottom: 0.875rem;
+  margin-bottom: 1.5rem;
+}
+.masthead h1 {
+  font-family: "Fraunces", "Iowan Old Style", serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-size: clamp(1.6rem, 4vw, 2.15rem);
+  margin: 0 0 0.2em;
+  letter-spacing: -0.01em;
+}
+.masthead p {
+  margin: 0;
+  color: rgba(38, 34, 32, 0.62);
+  max-width: 34ch;
+}
+
+form {
+  background-image: repeating-linear-gradient(to bottom, transparent, transparent calc(3.4em - 1px), rgba(38, 34, 32, 0.16) calc(3.4em - 1px), rgba(38, 34, 32, 0.16) 3.4em);
+  background-position: 0 0.2em;
+}
+
+.field {
+  margin-bottom: 1.5rem;
+  padding-top: 0.1em;
+}
+.field label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.35em;
+}
+.field .hint {
+  display: block;
+  font-size: 0.85rem;
+  color: rgba(38, 34, 32, 0.62);
+  margin-top: 0.3em;
+}
+.field input {
+  width: 100%;
+  font: inherit;
+  font-size: 1.05rem;
+  color: #262220;
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid rgba(38, 34, 32, 0.4);
+  padding: 0.35em 0.1em;
+  transition: border-color 0.15s ease;
+}
+.field input::placeholder {
+  color: rgba(38, 34, 32, 0.35);
+}
+.field input:focus {
+  border-color: #262220;
+}
+.field input[aria-invalid=true] {
+  border-color: #A6303F;
+}
+.field .error {
+  display: block;
+  color: #A6303F;
+  font-size: 0.85rem;
+  margin-top: 0.35em;
+  min-height: 1.1em;
+}
+
+.course-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 0 1.5rem;
+}
+@media (max-width: 30rem) {
+  .course-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.live-average {
+  margin: -0.3em 0 1.5rem;
+  font-size: 0.9rem;
+  color: rgba(38, 34, 32, 0.62);
+  min-height: 1.3em;
+}
+.live-average strong {
+  color: #262220;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  margin-top: 1.5rem;
+}
+
+button {
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 0.7em 1.4em;
+  border: 2px solid #262220;
+  background: #262220;
+  color: #EFE3C3;
+  transition: transform 0.12s ease, background 0.15s ease;
+}
+button:hover {
+  background: rgb(27.9305322129%, 24.9904761905%, 23.5204481793%);
+}
+button:active {
+  transform: translateY(1px);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: #262220;
+  border-color: rgba(38, 34, 32, 0.35);
+}
+.btn-ghost:hover {
+  background: rgba(38, 34, 32, 0.06);
+}
+
+.result {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 2px dashed rgba(38, 34, 32, 0.3);
+  opacity: 0;
+  transform: translateY(6px) scale(0.98);
+  animation: settle 0.5s ease-out forwards;
+  animation-delay: 0.08s;
+}
+.result .result-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.result .student h2 {
+  font-family: "Fraunces", "Iowan Old Style", serif;
+  font-size: 1.4rem;
+  margin: 0 0 0.15em;
+}
+.result .student .section-line {
+  color: rgba(38, 34, 32, 0.62);
+  font-size: 0.9rem;
+}
+.result .stamp {
+  border: 3px solid #2F6B4F;
+  color: #2F6B4F;
+  border-radius: 6px;
+  padding: 0.35em 0.9em;
+  font-family: "Fraunces", "Iowan Old Style", serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  transform: rotate(-6deg);
+  white-space: nowrap;
+}
+.result.is-fail .stamp {
+  border: 3px solid #A6303F;
+  color: #A6303F;
+  border-radius: 6px;
+}
+.result .stats-row {
+  display: flex;
+  gap: 2.5rem;
+  margin: 1.5rem 0;
+  flex-wrap: wrap;
+}
+.result .stats-row .stat {
+  display: flex;
+  flex-direction: column;
+}
+.result .stats-row .stat-number {
+  font-family: "Fraunces", "Iowan Old Style", serif;
+  font-size: 2.1rem;
+  line-height: 1.1;
+}
+.result .stats-row .stat-label {
+  color: rgba(38, 34, 32, 0.62);
+  font-size: 0.85rem;
+}
+.result .remark {
+  font-weight: 600;
+  margin-bottom: 0.875rem;
+}
+.result table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+.result table th, .result table td {
+  text-align: left;
+  padding: 0.5em 0.3em;
+  border-bottom: 1px solid rgba(38, 34, 32, 0.16);
+}
+.result table th {
+  font-weight: 600;
+  color: rgba(38, 34, 32, 0.62);
+  font-size: 0.85rem;
+}
+.result table td.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes settle {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98) rotate(0deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .result {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+.footnote {
+  margin-top: 2.5rem;
+  font-size: 0.8rem;
+  color: rgba(237, 233, 221, 0.55);
+  text-align: center;
+}

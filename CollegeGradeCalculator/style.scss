@@ -1,0 +1,332 @@
+// ============================================================
+// Student Grade Calculator — stylesheet
+// Theme: a report card resting on a chalkboard desk.
+// ============================================================
+@use "sass:color";
+
+// ---- Tokens -------------------------------------------------
+$bg-desk:      #21302A;   // chalkboard/desk green-black
+$paper:        #EFE3C3;   // manila report-card paper
+$paper-edge:   #E3D3A9;   // slightly deeper paper tone for shading
+$ink:          #262220;   // near-black warm ink
+$ink-soft:     rgba(38, 34, 32, 0.62);
+$rule:         rgba(38, 34, 32, 0.16);
+$pen-red:      #A6303F;   // red pen / "fail" stamp
+$pass-green:   #2F6B4F;   // "pass" stamp
+$chalk:        #EDE9DD;
+
+$font-head: "Fraunces", "Iowan Old Style", serif;
+$font-body: "IBM Plex Sans", "Segoe UI", sans-serif;
+
+$space-1: 0.5rem;
+$space-2: 0.875rem;
+$space-3: 1.5rem;
+$space-4: 2.5rem;
+
+$radius: 3px;
+
+@mixin ruled-lines($line-height: 2.4em, $color: $rule) {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent calc(#{$line-height} - 1px),
+    $color calc(#{$line-height} - 1px),
+    $color $line-height
+  );
+  background-position: 0 0.2em;
+}
+
+@mixin stamp($color) {
+  border: 3px solid $color;
+  color: $color;
+  border-radius: 6px;
+}
+
+* { box-sizing: border-box; }
+
+:focus-visible {
+  outline: 3px solid $pass-green;
+  outline-offset: 2px;
+}
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background: $bg-desk;
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(255,255,255,0.035), transparent 40%),
+    radial-gradient(circle at 88% 82%, rgba(255,255,255,0.03), transparent 45%);
+  color: $ink;
+  font-family: $font-body;
+  line-height: 1.5;
+  padding: $space-4 $space-2 $space-4;
+  display: flex;
+  justify-content: center;
+}
+
+.sheet {
+  width: 100%;
+  max-width: 40rem;
+}
+
+.card {
+  background: $paper;
+  background-image: linear-gradient(180deg, $paper 0%, $paper-edge 100%);
+  border-radius: $radius;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.4) inset,
+    0 18px 40px rgba(0,0,0,0.35);
+  transform: rotate(-0.35deg);
+  padding: $space-4 $space-4 $space-3;
+  position: relative;
+
+  // spiral-bound top edge
+  &::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: $space-4;
+    right: $space-4;
+    height: 20px;
+    background-image: radial-gradient($bg-desk 45%, transparent 46%);
+    background-size: 22px 22px;
+    background-repeat: repeat-x;
+    background-position: center;
+    opacity: 0.9;
+  }
+
+  @media (max-width: 30rem) {
+    padding: $space-3 $space-2 $space-2;
+    transform: none;
+  }
+}
+
+.masthead {
+  border-bottom: 2px solid $ink;
+  padding-bottom: $space-2;
+  margin-bottom: $space-3;
+
+  h1 {
+    font-family: $font-head;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-size: clamp(1.6rem, 4vw, 2.15rem);
+    margin: 0 0 0.2em;
+    letter-spacing: -0.01em;
+  }
+
+  p {
+    margin: 0;
+    color: $ink-soft;
+    max-width: 34ch;
+  }
+}
+
+form {
+  @include ruled-lines(3.4em);
+}
+
+.field {
+  margin-bottom: $space-3;
+  padding-top: 0.1em;
+
+  label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.35em;
+  }
+
+  .hint {
+    display: block;
+    font-size: 0.85rem;
+    color: $ink-soft;
+    margin-top: 0.3em;
+  }
+
+  input {
+    width: 100%;
+    font: inherit;
+    font-size: 1.05rem;
+    color: $ink;
+    background: transparent;
+    border: none;
+    border-bottom: 1.5px solid rgba(38,34,32,0.4);
+    padding: 0.35em 0.1em;
+    transition: border-color 0.15s ease;
+
+    &::placeholder { color: rgba(38,34,32,0.35); }
+
+    &:focus { border-color: $ink; }
+
+    &[aria-invalid="true"] {
+      border-color: $pen-red;
+    }
+  }
+
+  .error {
+    display: block;
+    color: $pen-red;
+    font-size: 0.85rem;
+    margin-top: 0.35em;
+    min-height: 1.1em;
+  }
+}
+
+.course-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 0 $space-3;
+
+  @media (max-width: 30rem) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.live-average {
+  margin: -0.3em 0 $space-3;
+  font-size: 0.9rem;
+  color: $ink-soft;
+  min-height: 1.3em;
+
+  strong { color: $ink; }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  margin-top: $space-3;
+}
+
+button {
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: $radius;
+  padding: 0.7em 1.4em;
+  border: 2px solid $ink;
+  background: $ink;
+  color: $paper;
+  transition: transform 0.12s ease, background 0.15s ease;
+
+  &:hover { background: color.adjust($ink, $lightness: 12%); }
+  &:active { transform: translateY(1px); }
+}
+
+.btn-ghost {
+  background: transparent;
+  color: $ink;
+  border-color: rgba(38,34,32,0.35);
+
+  &:hover { background: rgba(38,34,32,0.06); }
+}
+
+// ---- Result panel -------------------------------------------
+.result {
+  margin-top: $space-4;
+  padding-top: $space-3;
+  border-top: 2px dashed rgba(38,34,32,0.3);
+  opacity: 0;
+  transform: translateY(6px) scale(0.98);
+  animation: settle 0.5s ease-out forwards;
+  animation-delay: 0.08s;
+
+  .result-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: $space-3;
+    flex-wrap: wrap;
+  }
+
+  .student {
+    h2 {
+      font-family: $font-head;
+      font-size: 1.4rem;
+      margin: 0 0 0.15em;
+    }
+    .section-line {
+      color: $ink-soft;
+      font-size: 0.9rem;
+    }
+  }
+
+  .stamp {
+    @include stamp($pass-green);
+    padding: 0.35em 0.9em;
+    font-family: $font-head;
+    font-weight: 600;
+    font-size: 1.05rem;
+    transform: rotate(-6deg);
+    white-space: nowrap;
+  }
+
+  &.is-fail .stamp { @include stamp($pen-red); }
+
+  .stats-row {
+    display: flex;
+    gap: $space-4;
+    margin: $space-3 0;
+    flex-wrap: wrap;
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stat-number {
+      font-family: $font-head;
+      font-size: 2.1rem;
+      line-height: 1.1;
+    }
+
+    .stat-label {
+      color: $ink-soft;
+      font-size: 0.85rem;
+    }
+  }
+
+  .remark {
+    font-weight: 600;
+    margin-bottom: $space-2;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+
+    th, td {
+      text-align: left;
+      padding: 0.5em 0.3em;
+      border-bottom: 1px solid $rule;
+    }
+
+    th {
+      font-weight: 600;
+      color: $ink-soft;
+      font-size: 0.85rem;
+    }
+
+    td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  }
+}
+
+@keyframes settle {
+  from { opacity: 0; transform: translateY(6px) scale(0.98) rotate(0deg); }
+  to   { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .result { animation: none; opacity: 1; transform: none; }
+}
+
+.footnote {
+  margin-top: $space-4;
+  font-size: 0.8rem;
+  color: rgba(237, 233, 221, 0.55);
+  text-align: center;
+}
